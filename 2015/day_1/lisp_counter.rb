@@ -16,6 +16,8 @@ class LispCounter
     result[:first_neg]
   end
 
+  private
+
   def move_floor(data_object, unit)
     if unit == ')'
       new_floor = data_object[:floor] - 1
