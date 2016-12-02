@@ -1,6 +1,5 @@
 class PathFinder
   def initialize(initial_path)
-    @path              = initial_path
     @final_destination = walk(initial_path)
   end
 
