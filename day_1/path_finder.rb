@@ -36,7 +36,7 @@ class PathFinder
     case current_direction
     when 'N'
       destination[0] == 'R' ? 'E' : 'W'
-   when 'S'
+    when 'S'
       destination[0] == 'R' ? 'W' : 'E'
     when 'E'
       destination[0] == 'R' ? 'S' : 'N'
@@ -59,16 +59,17 @@ class PathFinder
   end
 
   def record(current, distance, new_direction)
-    additions = case new_direction
-    when 'N'
-      ((current[:y] + 1).upto(current[:y] + distance)).map    { |y| [current[:x], y] }
-    when 'S'
-      ((current[:y] - 1).downto(current[:y] - distance)).map { |y| [current[:x], y] }
-    when 'E'
-      ((current[:x] + 1).upto(current[:x] + distance)).map    { |x| [x, current[:y]] }
-    when 'W'
-      ((current[:y] - 1).downto(current[:y] - distance)).map { |x| [x, current[:y]] }
-    end
+    additions =
+      case new_direction
+      when 'N'
+        ((current[:y] + 1).upto(current[:y] + distance)).map   { |y| [current[:x], y] }
+      when 'S'
+        ((current[:y] - 1).downto(current[:y] - distance)).map { |y| [current[:x], y] }
+      when 'E'
+        ((current[:x] + 1).upto(current[:x] + distance)).map   { |x| [x, current[:y]] }
+      when 'W'
+        ((current[:y] - 1).downto(current[:y] - distance)).map { |x| [x, current[:y]] }
+      end
     current[:history] + additions
   end
 end
