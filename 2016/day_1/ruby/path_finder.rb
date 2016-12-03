@@ -1,6 +1,7 @@
 class PathFinder
   def initialize(initial_path)
     @final_destination = walk(initial_path)
+    p @final_destination[:history].last
   end
 
   attr_reader :final_destination
@@ -67,7 +68,7 @@ class PathFinder
       when 'E'
         ((current[:x] + 1).upto(current[:x] + distance)).map   { |x| [x, current[:y]] }
       when 'W'
-        ((current[:y] - 1).downto(current[:y] - distance)).map { |x| [x, current[:y]] }
+        ((current[:x] - 1).downto(current[:x] - distance)).map { |x| [x, current[:y]] }
       end
     current[:history] + additions
   end

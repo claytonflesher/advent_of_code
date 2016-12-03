@@ -3,7 +3,7 @@ require_relative "./keypad.rb"
 
 class TestKeypad < Minitest::Test
   SHORT = ["UUUDDDUUU", "LLLRRRLLL", "RUDL", "LDUR"]
-  LONG  = File.read("keypad.txt").split("\n")
+  LONG  = File.read("../keypad.txt").split("\n")
   def setup
     @keypad = Keypad.new(SHORT)
   end
