@@ -11,6 +11,23 @@ defmodule PathFinder do
     (abs x) + (abs y)
   end
 
+  def first_repeat(history), do: first_repeat(MapSet.new, Enum.reverse(history))
+
+  defp first_repeat(acc, [head|tail]) do
+    cond do
+      MapSet.member?(acc, head) -> first_repeat(acc, [], head)
+      true -> first_repeat(MapSet.put(acc, head), tail)
+    end
+  end
+
+  defp first_repeat(_, []), do: "There are no repeats."
+
+  defp first_repeat(_, [], answer) do
+    answer
+    |> Tuple.to_list
+    |> List.foldl(0, (fn x, acc -> acc + (abs x) end))
+  end
+
   defp parse(string) do
     string
     |> String.trim
@@ -54,15 +71,15 @@ defmodule PathFinder do
     additions =
       case new_direction do
         "N" -> (current[:y] + 1)..(current[:y] + distance) |> Enum.map(fn y -> {current[:x], y} end)
-        "S" -> (current[:y] - 1)..(current[:y] - distance) |> Enum.map(fn y -> {current[:x], y} end)
-        "E" -> (current[:x] + 1)..(current[:x] + distance) |> Enum.map(fn x -> {x, current[:y]} end)
-        "W" -> (current[:x] - 1)..(current[:x] - distance) |> Enum.map(fn x -> {x, current[:y]} end)
-         _  -> raise "Not a cardinal direction"
+          "S" -> (current[:y] - 1)..(current[:y] - distance) |> Enum.map(fn y -> {current[:x], y} end)
+          "E" -> (current[:x] + 1)..(current[:x] + distance) |> Enum.map(fn x -> {x, current[:y]} end)
+          "W" -> (current[:x] - 1)..(current[:x] - distance) |> Enum.map(fn x -> {x, current[:y]} end)
+        _  -> raise "Not a cardinal direction"
       end
     Enum.reverse(additions) ++ current[:history]
   end
 end
 
 history = PathFinder.run(File.read!("../path.txt"))
-IO.inspect(history)
 PathFinder.total_distance(history) |> IO.inspect
+IO.inspect(PathFinder.first_repeat(history))
