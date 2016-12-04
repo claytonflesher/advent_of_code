@@ -71,9 +71,9 @@ defmodule PathFinder do
     additions =
       case new_direction do
         "N" -> (current[:y] + 1)..(current[:y] + distance) |> Enum.map(fn y -> {current[:x], y} end)
-          "S" -> (current[:y] - 1)..(current[:y] - distance) |> Enum.map(fn y -> {current[:x], y} end)
-          "E" -> (current[:x] + 1)..(current[:x] + distance) |> Enum.map(fn x -> {x, current[:y]} end)
-          "W" -> (current[:x] - 1)..(current[:x] - distance) |> Enum.map(fn x -> {x, current[:y]} end)
+        "S" -> (current[:y] - 1)..(current[:y] - distance) |> Enum.map(fn y -> {current[:x], y} end)
+        "E" -> (current[:x] + 1)..(current[:x] + distance) |> Enum.map(fn x -> {x, current[:y]} end)
+        "W" -> (current[:x] - 1)..(current[:x] - distance) |> Enum.map(fn x -> {x, current[:y]} end)
         _  -> raise "Not a cardinal direction"
       end
     Enum.reverse(additions) ++ current[:history]
