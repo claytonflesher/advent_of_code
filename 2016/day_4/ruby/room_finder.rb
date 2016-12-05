@@ -1,8 +1,5 @@
 require 'set'
 class RoomFinder
-
-  ALPHABETS = ("a".."z").to_a + ("a".."z").to_a
-
   def initialize(rooms)
     @rooms       = format(rooms)
     @valid_rooms = find_valid_rooms
