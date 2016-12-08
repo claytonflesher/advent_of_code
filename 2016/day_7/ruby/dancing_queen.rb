@@ -23,9 +23,17 @@ class DancingQueen
   end
 
   def ssl?(addr)
-    right = /\w+\[\w*(\w)(\w)\1\w*\]\w*\2\1\2\w*/.match(addr)
-    left  = /\w*(\w)(\w)\1\w*\[\w*\2\1\2\w*\]\w+/.match(addr)
-    right || left ? true : false
+    right = /[\w\[\]]*\[\w*(\w)(\w)\1[\w\[\]]*\][\w\[\]]*\2\1\2[\w\[\]]*/.match(addr)
+    left  = /[\w\[\]]*(\w)(\w)\1[\w\[\]]*\[\w*\2\1\2\w*\][\w\[\]]*/.match(addr)
+    if right
+      right_exclusion = right[2] + right[1] + right[2]
+      addr !~ /\[\w*#{right_exclusion}\w*\]/
+    elsif left
+      left_exclusion = left[1] + left[2] + left[1]
+      addr !~ /\[\w*#{left_exclusion}\w*\]/
+    else
+      false
+    end
   end
 
   def valid_ip7_list
