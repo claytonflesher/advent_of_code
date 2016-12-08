@@ -76,7 +76,3 @@ class DancingQueen
     end
   end
 end
-
-d = DancingQueen.new(File.read("../ip_addresses.txt"))
-p d.valid_ssl_list.length
-p d.invalid_ssl_list.length

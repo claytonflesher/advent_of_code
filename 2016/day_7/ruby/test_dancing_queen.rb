@@ -53,6 +53,6 @@ class TestDancingQueen < Minitest::Test
 
   def test_count_long_ssl_list
     long_list = DancingQueen.new(File.read("../ip_addresses.txt"))
-    assert_equal(190, long_list.valid_ssl_count)
+    assert_equal(244, long_list.valid_ssl_count)
   end
 end
